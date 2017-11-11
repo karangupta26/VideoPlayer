@@ -9,25 +9,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="350.0" prefWidth="800.0" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="videoplayer.FXMLDocumentController">
+<BorderPane fx:id="borderPane" prefHeight="350.0" prefWidth="800.0" stylesheets="@styleSheet.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="videoplayer.FXMLDocumentController">
     <bottom>
-    <VBox fx:id="vbox" alignment="CENTER" prefHeight="35.0" prefWidth="572.0">
+    <VBox fx:id="vbox" alignment="CENTER" prefHeight="55.0" prefWidth="800.0">
       <children>
+            <Slider fx:id="seekSlider" prefHeight="18.0" prefWidth="763.0">
+               <padding>
+                  <Insets left="5.0" right="25.0" />
+               </padding></Slider>
         <HBox alignment="CENTER" minHeight="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="35.0" prefWidth="800.0">
           <children>
-            <Button fx:id="openfile" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="20.0" prefWidth="20.0">
+            <Button fx:id="openfile" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="25.0" prefWidth="25.0">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin></Button>
-            <Button fx:id="play" mnemonicParsing="false" onAction="#playVideo" prefHeight="20.0" prefWidth="20.0">
+            <Button fx:id="play" mnemonicParsing="false" onAction="#playVideo" prefHeight="25.0" prefWidth="25.0">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin></Button>
-            <Button fx:id="pause" mnemonicParsing="false" onAction="#pauseVideo" prefHeight="20.0" prefWidth="20.0">
+            <Button fx:id="pause" mnemonicParsing="false" onAction="#pauseVideo" prefHeight="25.0" prefWidth="25.0">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin></Button>
-            <Button fx:id="stop" ellipsisString="" mnemonicParsing="false" onAction="#stopVideo" prefHeight="20.0" prefWidth="20.0">
+            <Button fx:id="stop" ellipsisString="" mnemonicParsing="false" onAction="#stopVideo" prefHeight="25.0" prefWidth="25.0">
                      <HBox.margin>
                         <Insets right="20.0" />
                      </HBox.margin></Button>
@@ -45,9 +49,7 @@
                      </HBox.margin>
                   </Slider>
           </children>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
+               
         </HBox>
       </children>
     </VBox>
@@ -55,7 +57,6 @@
   <center>
     <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Slider fx:id="seekSlider" StackPane.alignment="BOTTOM_CENTER" />
             <MediaView fx:id="mediaView" fitHeight="200.0" fitWidth="200.0" />
          </children></StackPane>
   </center>

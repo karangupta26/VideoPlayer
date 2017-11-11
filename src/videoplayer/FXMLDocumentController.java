@@ -7,6 +7,8 @@ package videoplayer;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -21,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -36,6 +39,8 @@ public class FXMLDocumentController implements Initializable {
     
     private String filePath;
     private MediaPlayer mediaPlayer;
+    private Media media;
+    MediaPlayer.Status status=MediaPlayer.Status.STOPPED;
     @FXML
     private MediaView mediaView;
     @FXML
@@ -50,21 +55,41 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleButtonAction(ActionEvent event) {
-        
+       
+        List<String> extensionList=new ArrayList<String>();
+        extensionList.add("*.mp4");
+        extensionList.add("*.mp3");
         FileChooser fileChooser=new FileChooser();
-        FileChooser.ExtensionFilter extensionFilter=new FileChooser.ExtensionFilter("Select a File (*.mp4)","*.mp4");
+        FileChooser.ExtensionFilter extensionFilter=new FileChooser.ExtensionFilter("Select a File`",extensionList);
         fileChooser.getExtensionFilters().add(extensionFilter);
         File file=fileChooser.showOpenDialog(null);
         try{
             filePath =file.toURI().toString();    
             if(filePath!=null){
-                Media media=new Media(filePath);
-                mediaPlayer=new MediaPlayer(media);
-                mediaView.setMediaPlayer(mediaPlayer);
+                
+                switch(status){
+                    case STOPPED:
+                        media=new Media(filePath);
+                        mediaPlayer=new MediaPlayer(media);
+                        mediaView.setMediaPlayer(mediaPlayer);
+                        mediaPlayer.play();
+                        status=MediaPlayer.Status.PLAYING;
+                        break;
+                    case PLAYING:
+                        mediaPlayer.stop();
+                        mediaPlayer.dispose();
+                        media=new Media(filePath);
+                        mediaPlayer=new MediaPlayer(media);
+                        mediaView.setMediaPlayer(mediaPlayer);
+                        mediaPlayer.play();
+                        status=MediaPlayer.Status.PLAYING;
+                        break;
+                }                   
                 DoubleProperty width=mediaView.fitWidthProperty();
                 DoubleProperty height=mediaView.fitHeightProperty();
                 width.bind(Bindings.selectDouble(mediaView.sceneProperty(), "width"));
                 height.bind(Bindings.selectDouble(mediaView.sceneProperty(), "height"));
+                
                 vSlider.setValue(mediaPlayer.getVolume()*100);
                 vSlider.valueProperty().addListener(new InvalidationListener() {
                     @Override
@@ -89,10 +114,11 @@ public class FXMLDocumentController implements Initializable {
                         mediaPlayer.seek(Duration.seconds(seekSlider.getValue()));
                     }
                 });
-                if(mediaPlayer.getMedia()!=null){
-                mediaPlayer.stop();
+                
+                
                 mediaPlayer.play();
-                }
+                
+                
             }
         }catch(Exception e){
         }
@@ -137,6 +163,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
+    
     
 }
