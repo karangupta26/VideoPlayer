@@ -26,6 +26,13 @@
     -fx-background-position:  center; 
     -fx-background-color: transparent;
 }
+#Autoplay{
+    -fx-background-image: url(../images/Autoplay.jpeg);
+    -fx-background-size: 20 20;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:  center; 
+    -fx-background-color: transparent;
+}
 StackPane{
     -fx-background-color: black;
 }

@@ -5,13 +5,17 @@
  */
 package videoplayer;
 
+import com.sun.javaws.Globals;
+import java.awt.Toolkit;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javax.swing.Icon;
 
 /**
  *
@@ -25,6 +29,7 @@ public class VideoPlayer extends Application {
         
         Scene scene = new Scene(root);
         stage.setTitle("Video Player");
+        stage.getIcons().add(new Image("/images/VideoPlayerIcon.jpeg"));
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent doubleClicked) {
@@ -39,7 +44,9 @@ public class VideoPlayer extends Application {
     /**
      * @param args the command line arguments
      */
+    
     public static void main(String[] args) {
+        
         launch(args);
     }
     

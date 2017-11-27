@@ -73,6 +73,7 @@ public class FXMLDocumentController implements Initializable {
                         mediaPlayer=new MediaPlayer(media);
                         mediaView.setMediaPlayer(mediaPlayer);
                         mediaPlayer.play();
+                        mediaPlayer.autoPlayProperty();
                         status=MediaPlayer.Status.PLAYING;
                         break;
                     case PLAYING:
@@ -82,6 +83,7 @@ public class FXMLDocumentController implements Initializable {
                         mediaPlayer=new MediaPlayer(media);
                         mediaView.setMediaPlayer(mediaPlayer);
                         mediaPlayer.play();
+                        mediaPlayer.autoPlayProperty();
                         status=MediaPlayer.Status.PLAYING;
                         break;
                 }                   
@@ -156,6 +158,16 @@ public class FXMLDocumentController implements Initializable {
     private void stopVideo(ActionEvent ae){
         mediaPlayer.stop();
     } 
+    @FXML
+    private void autoPlay(ActionEvent ae){
+        int count=mediaPlayer.getCycleCount();
+        if(count==1){
+            mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        }
+        else{
+            mediaPlayer.setCycleCount(1);
+        }        
+    }
     @FXML
     private void exitVideo(ActionEvent ae){
         System.exit(0);
